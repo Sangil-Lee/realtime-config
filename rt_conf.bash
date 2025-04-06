@@ -231,6 +231,15 @@ ANSWER="NO"
 dist=$(find_dist)
 echo "DISTRIBUTION: $dist"
 case "$dist" in
+    *"bookworm"*)
+	if [ "$ANSWER" == "NO" ]; then
+	    yes_or_no_to_go "Debian Bookworm 12 is detected as $dist"
+	fi
+	debian_pkgs
+	debian_rt_conf
+	boot_parameters_conf
+	${SUDO_CMD} update-grub
+	;;
     *"stretch"*)
 	if [ "$ANSWER" == "NO" ]; then
 	    yes_or_no_to_go "Debian Stretch 9 is detected as $dist"
